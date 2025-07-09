@@ -1,0 +1,28 @@
+package prefabs
+
+import (
+	"image/color"
+	"survivors-go/cmd/game/internal/game/component"
+
+	"github.com/go-gl/mathgl/mgl64"
+	"github.com/go-glx/ecs/ecs"
+)
+
+func Player() func() *ecs.Entity {
+	return func() *ecs.Entity {
+		plr := ecs.NewEntity(PrefabIDPlayer)
+
+		transform := component.NewTransform(mgl64.Vec2{
+			500 / 2,
+			500 / 2,
+		})
+		transform.Size = mgl64.Vec2{45, 45}
+
+		color := component.NewColor(color.RGBA{255, 255, 0, 250})
+
+		plr.AddComponent(transform)
+		plr.AddComponent(color)
+
+		return plr
+	}
+}

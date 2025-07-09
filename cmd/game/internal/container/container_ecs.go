@@ -14,6 +14,8 @@ func (c *container) ecsWorld() *ecs.World {
 			world.AddSystem(sys.TypeID())
 		}
 
+		//world.AddPrefabEntity("Player")
+
 		return world
 	})
 }
@@ -28,6 +30,10 @@ func (c *container) ecsRegistry() *ecs.Registry {
 
 		for _, cmp := range c.ecsComponents() {
 			reg.RegisterComponent(cmp)
+		}
+
+		for _, prefabs := range c.ecsPrefabs() {
+			reg.RegisterPrefab(prefabs)
 		}
 
 		return reg

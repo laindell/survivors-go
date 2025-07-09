@@ -15,6 +15,10 @@ type Transform struct {
 func NewTransform(Position mgl64.Vec2) *Transform {
 	return &Transform{
 		Position: Position,
+		Size: mgl64.Vec2{
+			32,
+			32,
+		},
 		Rotation: 0,
 		Scale:    mgl64.Vec2{1, 1},
 	}

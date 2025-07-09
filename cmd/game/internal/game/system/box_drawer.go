@@ -5,6 +5,7 @@ import (
 	"survivors-go/cmd/game/internal/game/component"
 
 	"github.com/go-glx/ecs/ecs"
+	//"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/vector"
 )
 
