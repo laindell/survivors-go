@@ -2,13 +2,15 @@ module survivors-go
 
 go 1.24.1
 
+require github.com/andygeiss/ecs v0.3.12
+
 require (
-	github.com/andygeiss/ecs v0.3.12
 	github.com/aquilax/go-perlin v1.1.0 // indirect
 	github.com/ebitengine/gomobile v0.0.0-20240911145611-4856209ac325 // indirect
 	github.com/ebitengine/hideconsole v1.0.0 // indirect
 	github.com/ebitengine/purego v0.8.0 // indirect
 	github.com/fsnotify/fsnotify v1.8.0 // indirect
+	github.com/go-glx/ecs v0.7.0 // indirect
 	github.com/go-viper/mapstructure/v2 v2.2.1 // indirect
 	github.com/hajimehoshi/ebiten/v2 v2.8.8 // indirect
 	github.com/jezek/xgb v1.1.1 // indirect

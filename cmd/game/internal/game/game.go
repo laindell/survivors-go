@@ -2,7 +2,7 @@ package game
 
 import (
 	"errors"
-	"github.com/andygeiss/ecs"
+	"github.com/go-glx/ecs/ecs"
 	"image/color"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -10,18 +10,18 @@ import (
 )
 
 type Game struct {
-	engine         ecs.Engine
+	world          *ecs.World
 	prevF11Pressed bool
 }
 
-func NewGame(engine ecs.Engine) *Game {
+func NewGame(world *ecs.World) *Game {
 	return &Game{
-		engine: engine,
+		world: world,
 	}
 }
 
 func (game *Game) Update() error {
-	game.engine.Tick()
+	game.world.Update()
 	f11pressed := ebiten.IsKeyPressed(ebiten.KeyF11)
 	if f11pressed && !game.prevF11Pressed {
 		ebiten.SetFullscreen(!ebiten.IsFullscreen())
@@ -37,8 +37,10 @@ func (game *Game) Update() error {
 }
 
 func (game *Game) Draw(screen *ebiten.Image) {
-	ebitenutil.DebugPrint(screen, "Hello, Survivors Go!")
+	// TODO: screen
+	game.world.Draw()
 	screen.Fill(color.RGBA{0xff, 0, 0, 0xff})
+	ebitenutil.DebugPrint(screen, "Hello, Survivors Go!")
 }
 
 func (game *Game) Layout(outsideWidth, outsideHeigxht int) (int, int) {
