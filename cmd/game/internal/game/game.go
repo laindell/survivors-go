@@ -2,21 +2,26 @@ package game
 
 import (
 	"errors"
+
 	"github.com/go-glx/ecs/ecs"
-	"image/color"
+
+	//"image/color"
 
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+	//"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+	"survivors-go/cmd/game/internal/arch/screen"
 )
 
 type Game struct {
-	world          *ecs.World
-	prevF11Pressed bool
+	world               *ecs.World
+	prevF11Pressed      bool
+	ebitenScreenManager *screen.Manager
 }
 
-func NewGame(world *ecs.World) *Game {
+func NewGame(world *ecs.World, ebitenScreenManager *screen.Manager) *Game {
 	return &Game{
-		world: world,
+		world:               world,
+		ebitenScreenManager: ebitenScreenManager,
 	}
 }
 
@@ -38,9 +43,9 @@ func (game *Game) Update() error {
 
 func (game *Game) Draw(screen *ebiten.Image) {
 	// TODO: screen
+	game.ebitenScreenManager.UpdateScreen(screen)
 	game.world.Draw()
-	screen.Fill(color.RGBA{0xff, 0, 0, 0xff})
-	ebitenutil.DebugPrint(screen, "Hello, Survivors Go!")
+
 }
 
 func (game *Game) Layout(outsideWidth, outsideHeigxht int) (int, int) {

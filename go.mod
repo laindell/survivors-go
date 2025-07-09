@@ -10,6 +10,7 @@ require (
 	github.com/ebitengine/hideconsole v1.0.0 // indirect
 	github.com/ebitengine/purego v0.8.0 // indirect
 	github.com/fsnotify/fsnotify v1.8.0 // indirect
+	github.com/go-gl/mathgl v1.2.0 // indirect
 	github.com/go-glx/ecs v0.7.0 // indirect
 	github.com/go-viper/mapstructure/v2 v2.2.1 // indirect
 	github.com/hajimehoshi/ebiten/v2 v2.8.8 // indirect

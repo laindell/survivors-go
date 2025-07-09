@@ -7,6 +7,8 @@ import (
 func (cont *container) game() *game.Game {
 	return static(cont, func() *game.Game {
 		return game.NewGame(
-			cont.ecsWorld())
+			cont.ecsWorld(),
+			cont.ebitenScreenManager(),
+		)
 	})
 }

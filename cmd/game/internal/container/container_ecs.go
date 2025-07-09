@@ -1,8 +1,6 @@
 package container
 
 import (
-	"survivors-go/cmd/game/internal/game/system"
-
 	"github.com/go-glx/ecs/ecs"
 )
 
@@ -28,22 +26,10 @@ func (c *container) ecsRegistry() *ecs.Registry {
 			reg.RegisterSystem(sys)
 		}
 
-		return reg
-	})
-}
-
-func (c *container) ecsSystems() []ecs.System {
-	return *static(c, func() *[]ecs.System {
-		return &[]ecs.System{
-			c.ecsSystemDebug(),
+		for _, cmp := range c.ecsComponents() {
+			reg.RegisterComponent(cmp)
 		}
-	})
-}
 
-func (c *container) ecsSystemDebug() *system.Debug {
-	return static(c, func() *system.Debug {
-		return system.NewDebug(
-			c.ebitenScreenManager(),
-		)
+		return reg
 	})
 }

@@ -1,7 +1,7 @@
 package system
 
 import (
-	"survivors-go/cmd/game/internal/game/system/internal"
+	"survivors-go/cmd/game/internal/arch"
 
 	"image/color"
 
@@ -10,10 +10,10 @@ import (
 )
 
 type Debug struct {
-	ebiten internal.Ebiten
+	ebiten arch.Engine
 }
 
-func NewDebug(ebt internal.Ebiten) *Debug {
+func NewDebug(ebt arch.Engine) *Debug {
 	return &Debug{
 		ebiten: ebt,
 	}
@@ -25,7 +25,7 @@ func (d *Debug) TypeID() ecs.SystemTypeID {
 }
 
 func (d *Debug) OnDraw(_ ecs.RuntimeWorld) {
-	screen := d.ebiten.Screen()
+	screen := d.ebiten.ScreenManager().Screen()
 
 	screen.Fill(color.RGBA{0xff, 0, 0, 0xff})
 	ebitenutil.DebugPrint(screen, "Hello, Survivors Go!")
