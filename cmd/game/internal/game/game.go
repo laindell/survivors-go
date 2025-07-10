@@ -10,6 +10,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 	//"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"survivors-go/cmd/game/internal/arch/screen"
+	"survivors-go/cmd/game/internal/game/component"
 )
 
 type Game struct {
@@ -47,6 +48,6 @@ func (game *Game) Draw(screen *ebiten.Image) {
 
 }
 
-func (game *Game) Layout(outsideWidth, outsideHeigxht int) (int, int) {
-	return 500, 500
+func (game *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
+	return int(WorldWidth() * component.GameUnit), int(WorldHeight() * component.GameUnit)
 }
