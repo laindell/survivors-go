@@ -30,8 +30,7 @@ func (d *Debug) TypeID() ecs.SystemTypeID {
 func (d *Debug) OnDraw(_ ecs.RuntimeWorld) {
 	screen := d.ebiten.ScreenManager().Screen()
 
-	screen.Fill(color.RGBA{0xff, 0, 0, 0xff})
-	//ebitenutil.DebugPrint(screen, "Hello, Survivors Go!")
+	screen.Fill(color.RGBA{255, 255, 255, 255})
 }
 
 func (d *Debug) OnUpdate(w ecs.RuntimeWorld) {

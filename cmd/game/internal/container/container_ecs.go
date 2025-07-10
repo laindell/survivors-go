@@ -14,8 +14,6 @@ func (c *container) ecsWorld() *ecs.World {
 			world.AddSystem(sys.TypeID())
 		}
 
-		//world.AddPrefabEntity("Player")
-
 		return world
 	})
 }

@@ -19,7 +19,7 @@ func (c *container) ecsComponents() []ecs.Component {
 
 func (c *container) ecsComponentTransform() *component.Transform {
 	return static(c, func() *component.Transform {
-		return component.NewTransform(mgl64.Vec2{})
+		return component.NewTransform(mgl64.Vec2{}, mgl64.Vec2{})
 	})
 }
 

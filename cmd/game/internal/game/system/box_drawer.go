@@ -5,7 +5,7 @@ import (
 	"survivors-go/cmd/game/internal/game/component"
 
 	"github.com/go-glx/ecs/ecs"
-	//"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+
 	"github.com/hajimehoshi/ebiten/v2/vector"
 )
 
@@ -28,12 +28,15 @@ func (b *BoxDrawer) OnDraw(w ecs.RuntimeWorld) {
 	for found.Next() {
 		_, transform, color := found.Get()
 
+		screenX, screenY := transform.ScreenPos()
+		screenW, screenH := transform.ScreenSize()
+
 		vector.DrawFilledRect(
 			screen,
-			float32(transform.Position.X()),
-			float32(transform.Position.Y()),
-			float32(transform.Size.X()),
-			float32(transform.Size.Y()),
+			float32(screenX),
+			float32(screenY),
+			float32(screenW),
+			float32(screenH),
 			color.Color,
 			false,
 		)

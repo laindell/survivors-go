@@ -15,17 +15,17 @@ func (c *container) ecsSystems() []ecs.System {
 	})
 }
 
-func (c *container) ecsSystemDebug() *system.Debug {
-	return static(c, func() *system.Debug {
-		return system.NewDebug(
+func (c *container) ecsSystemBoxDrawer() *system.BoxDrawer {
+	return static(c, func() *system.BoxDrawer {
+		return system.NewBowDrawer(
 			c.ebitenEngine(),
 		)
 	})
 }
 
-func (c *container) ecsSystemBoxDrawer() *system.BoxDrawer {
-	return static(c, func() *system.BoxDrawer {
-		return system.NewBowDrawer(
+func (c *container) ecsSystemDebug() *system.Debug {
+	return static(c, func() *system.Debug {
+		return system.NewDebug(
 			c.ebitenEngine(),
 		)
 	})

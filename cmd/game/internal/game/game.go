@@ -42,7 +42,6 @@ func (game *Game) Update() error {
 }
 
 func (game *Game) Draw(screen *ebiten.Image) {
-	// TODO: screen
 	game.ebitenScreenManager.UpdateScreen(screen)
 	game.world.Draw()
 
