@@ -25,8 +25,11 @@ func Player() func() *ecs.Entity {
 
 		color := component.NewColor(color.RGBA{255, 255, 0, 250})
 
+		player := component.NewPlayer(1.0)
+
 		plr.AddComponent(transform)
 		plr.AddComponent(color)
+		plr.AddComponent(player)
 
 		return plr
 	}

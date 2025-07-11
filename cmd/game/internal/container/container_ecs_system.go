@@ -11,6 +11,7 @@ func (c *container) ecsSystems() []ecs.System {
 		return &[]ecs.System{
 			c.ecsSystemDebug(),
 			c.ecsSystemBoxDrawer(),
+			c.ecsSystemCamera(),
 		}
 	})
 }
@@ -28,5 +29,11 @@ func (c *container) ecsSystemDebug() *system.Debug {
 		return system.NewDebug(
 			c.ebitenEngine(),
 		)
+	})
+}
+
+func (c *container) ecsSystemCamera() *system.CameraSystem {
+	return static(c, func() *system.CameraSystem {
+		return system.NewCameraSystem()
 	})
 }

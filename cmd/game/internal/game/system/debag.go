@@ -41,4 +41,5 @@ func (d *Debug) OnUpdate(w ecs.RuntimeWorld) {
 	d.limit--
 
 	w.AddPrefabEntity(prefabs.PrefabIDPlayer)
+	w.AddPrefabEntity(prefabs.PrefabIDCamera)
 }
