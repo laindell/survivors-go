@@ -13,7 +13,7 @@ func Camera() func() *ecs.Entity {
 		camera := component.NewCamera(
 			mgl64.Vec2{0, 0}, // позиція todo: треба змінити щоб в напрямку куди йде гравець було зміщення на 1 системну одиницю
 			0.1,              // швидкість слідування
-			3.0,              // zoom
+			1,                // zoom
 			mgl64.Vec2{0, 0}, // offset
 			nil,              // bounds
 		)

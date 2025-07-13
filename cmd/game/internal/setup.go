@@ -5,11 +5,11 @@ import (
 	"survivors-go/cmd/game/internal/container"
 
 	"github.com/hajimehoshi/ebiten/v2"
-	"survivors-go/cmd/game/internal/game"
+	"survivors-go/cmd/game/internal/arch"
 )
 
 func RunGame() int {
-	game.InitWorldParams(-20, 20, -20, 20)
+	arch.InitWorldParams(-30, 30, -20, 20)
 	Closer := NewCloser()
 	di := container.NewDI(Closer)
 

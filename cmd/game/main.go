@@ -8,7 +8,7 @@ import (
 )
 
 func init() {
-	ebiten.SetWindowSize(800, 600)
+	ebiten.SetWindowSize(600, 400)
 	ebiten.SetWindowTitle("Survivor")
 
 }

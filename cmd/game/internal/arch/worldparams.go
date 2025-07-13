@@ -1,4 +1,4 @@
-package game
+package arch
 
 // Глобальні змінні для меж світу
 var (

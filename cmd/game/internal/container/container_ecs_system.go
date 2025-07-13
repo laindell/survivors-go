@@ -34,6 +34,8 @@ func (c *container) ecsSystemDebug() *system.Debug {
 
 func (c *container) ecsSystemCamera() *system.CameraSystem {
 	return static(c, func() *system.CameraSystem {
-		return system.NewCameraSystem()
+		return system.NewCameraSystem(
+			c.ebitenEngine(),
+		)
 	})
 }

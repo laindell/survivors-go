@@ -5,12 +5,10 @@ import (
 
 	"github.com/go-glx/ecs/ecs"
 
-	//"image/color"
-
 	"github.com/hajimehoshi/ebiten/v2"
 	//"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+
 	"survivors-go/cmd/game/internal/arch/screen"
-	"survivors-go/cmd/game/internal/game/component"
 )
 
 type Game struct {
@@ -44,10 +42,19 @@ func (game *Game) Update() error {
 
 func (game *Game) Draw(screen *ebiten.Image) {
 	game.ebitenScreenManager.UpdateScreen(screen)
-	game.world.Draw()
 
+	buffer := game.ebitenScreenManager.Buffer()
+	buffer.Clear()
+	oldScreen := game.ebitenScreenManager.Screen()
+	game.ebitenScreenManager.UpdateScreen(buffer)
+	game.world.Draw()
+	game.ebitenScreenManager.UpdateScreen(oldScreen)
+
+	screen.DrawImage(buffer, nil)
 }
 
 func (game *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
-	return int(WorldWidth() * component.GameUnit), int(WorldHeight() * component.GameUnit)
+	// Тепер ігрове поле завжди дорівнює розміру вікна
+	game.ebitenScreenManager.SetBufferSize(outsideWidth, outsideHeight)
+	return outsideWidth, outsideHeight
 }
