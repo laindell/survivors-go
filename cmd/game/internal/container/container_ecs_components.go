@@ -3,6 +3,7 @@ package container
 import (
 	"image/color"
 	"survivors-go/cmd/game/internal/game/component"
+	"time"
 
 	"github.com/go-gl/mathgl/mgl64"
 	"github.com/go-glx/ecs/ecs"
@@ -15,6 +16,8 @@ func (c *container) ecsComponents() []ecs.Component {
 			c.ecsComponentColor(),
 			c.ecsComponentPlayer(),
 			c.ecsComponentCamera(),
+			c.ecsComponentSprite(),
+			c.ecsComponentAnimation(),
 		}
 	})
 }
@@ -33,9 +36,12 @@ func (c *container) ecsComponentColor() *component.Color {
 
 func (c *container) ecsComponentPlayer() *component.Player {
 	return static(c, func() *component.Player {
-		return component.NewPlayer(0)
+		return component.NewPlayer(
+			0,
+		)
 	})
 }
+
 func (c *container) ecsComponentCamera() *component.Camera {
 	return static(c, func() *component.Camera {
 		return component.NewCamera(
@@ -45,5 +51,21 @@ func (c *container) ecsComponentCamera() *component.Camera {
 			mgl64.Vec2{0, 0}, // offset (зсув)
 			nil,              // bounds (межі, якщо не потрібні — nil)
 		)
+	})
+}
+
+func (c *container) ecsComponentSprite() *component.Sprite {
+	return static(c, func() *component.Sprite {
+		return component.NewSprite(
+			nil,
+			0,
+			0,
+		)
+	})
+}
+
+func (c *container) ecsComponentAnimation() *component.Animation {
+	return static(c, func() *component.Animation {
+		return component.NewAnimation(8, 100*time.Millisecond, true)
 	})
 }

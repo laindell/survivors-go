@@ -10,6 +10,7 @@ import (
 
 	"survivors-go/cmd/game/internal/arch/screen"
 	// Додаю імпорти для префабів
+	"survivors-go/cmd/game/internal/game/assets"
 	"survivors-go/cmd/game/internal/game/prefabs"
 )
 
@@ -17,11 +18,12 @@ type Game struct {
 	world               *ecs.World
 	prevF11Pressed      bool
 	ebitenScreenManager *screen.Manager
+	assetManager        *assets.AssetManager
 }
 
-func NewGame(world *ecs.World, ebitenScreenManager *screen.Manager) *Game {
-	// Створюємо гравця та камеру через префаби
-	player := prefabs.Player()()
+func NewGame(world *ecs.World, ebitenScreenManager *screen.Manager, assetManager *assets.AssetManager) *Game {
+	// Створюємо анімованого гравця
+	player := prefabs.AnimatedPlayer(assetManager)()
 	camera := prefabs.Camera()()
 	world.AddEntity(player)
 	world.AddEntity(camera)
@@ -29,6 +31,7 @@ func NewGame(world *ecs.World, ebitenScreenManager *screen.Manager) *Game {
 	return &Game{
 		world:               world,
 		ebitenScreenManager: ebitenScreenManager,
+		assetManager:        assetManager,
 	}
 }
 
