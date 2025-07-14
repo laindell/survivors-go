@@ -8,5 +8,7 @@ type (
 	}
 	ScreenManager interface {
 		Screen() *ebiten.Image
+		BufW() int
+		BufH() int
 	}
 )

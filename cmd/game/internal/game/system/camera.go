@@ -39,18 +39,30 @@ func (s *CameraSystem) OnUpdate(w ecs.RuntimeWorld) {
 
 	// Оновлення камери
 	cameraFilter := ecs.NewFilter1[component.Camera](w).Find()
-	screen := s.ebiten.ScreenManager().Screen()
-	screenW := float64(screen.Bounds().Dx())
-	screenH := float64(screen.Bounds().Dy())
 
 	for cameraFilter.Next() {
 		_, cam := cameraFilter.Get()
-		cam.Target = playerPos.Add(cam.Offset)
-		delta := cam.Target.Sub(cam.Pos)
-		cam.Pos = cam.Pos.Add(delta.Mul(cam.Speed))
 
+		// Встановлюємо цільову позицію камери на позицію гравця
+		cam.Target = playerPos.Add(cam.Offset)
+
+		// Плавне слідування за гравцем
+		if cam.Speed >= 1.0 {
+			// Миттєве слідування
+			cam.Pos = cam.Target
+		} else {
+			// Плавне слідування з інтерполяцією
+			diff := cam.Target.Sub(cam.Pos)
+			cam.Pos = cam.Pos.Add(diff.Mul(cam.Speed))
+		}
+
+		// Застосовуємо обмеження, якщо вони є
 		if cam.Bounds != nil {
-			halfScreen := mgl64.Vec2{screenW / 2 / cam.Zoom, screenH / 2 / cam.Zoom}
+			bufW := float64(s.ebiten.ScreenManager().BufW())
+			bufH := float64(s.ebiten.ScreenManager().BufH())
+
+			// Обчислюємо половину видимої області з урахуванням зуму
+			halfScreen := mgl64.Vec2{bufW / 2 / cam.Zoom / component.GameUnit, bufH / 2 / cam.Zoom / component.GameUnit}
 
 			min := cam.Bounds.Min.Add(halfScreen)
 			max := cam.Bounds.Max.Sub(halfScreen)

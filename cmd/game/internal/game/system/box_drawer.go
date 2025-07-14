@@ -1,13 +1,12 @@
 package system
 
 import (
-	"survivors-go/cmd/game/internal/arch" // Додаю імпорт для WorldToScreen
 	"survivors-go/cmd/game/internal/game/component"
 
 	"github.com/go-glx/ecs/ecs"
 
-	"github.com/go-gl/mathgl/mgl64"
 	"github.com/hajimehoshi/ebiten/v2/vector"
+	"survivors-go/cmd/game/internal/arch"
 )
 
 type BoxDrawer struct {
@@ -33,39 +32,52 @@ func (b *BoxDrawer) OnDraw(w ecs.RuntimeWorld) {
 		cam = c
 		break
 	}
-	var camMatrix mgl64.Mat3
-	if cam != nil {
-		w, h := float64(screen.Bounds().Dx()), float64(screen.Bounds().Dy())
-		camMatrix = cam.Matrix(w, h)
-	} else {
-		camMatrix = mgl64.Ident3()
-	}
+
+	// Отримуємо розміри екрану
+	screenW := float64(screen.Bounds().Dx())
+	screenH := float64(screen.Bounds().Dy())
 
 	found := ecs.NewFilter2[component.Transform, component.Color](w).Find()
 
 	for found.Next() {
 		_, transform, color := found.Get()
 
-		// отримуємо координати світу
-		x := transform.Pos.X()
-		y := transform.Pos.Y()
-		w := transform.Size.X()
-		h := transform.Size.Y()
-		unit := component.GameUnit
+		// Отримуємо позицію об'єкта в світових координатах
+		worldX := transform.Pos.X()
+		worldY := transform.Pos.Y()
+		worldW := transform.Size.X()
+		worldH := transform.Size.Y()
 
-		// Трансформуємо позицію через матрицю камери
-		pos := mgl64.Vec3{x * unit, y * unit, 1}
-		pos = camMatrix.Mul3x1(pos)
+		var screenX, screenY float64
+		var zoom float64 = 1.0
 
-		screenW := float32(w * unit * (cam.Zoom))
-		screenH := float32(h * unit * (cam.Zoom))
+		if cam != nil {
+			// Віднімаємо позицію камери від позиції об'єкта
+			screenX = (worldX - cam.Pos.X()) * component.GameUnit * cam.Zoom
+			screenY = (worldY - cam.Pos.Y()) * component.GameUnit * cam.Zoom
 
+			// Зміщуємо в центр екрану
+			screenX += screenW / 2
+			screenY += screenH / 2
+
+			zoom = cam.Zoom
+		} else {
+			// Якщо камери немає, просто конвертуємо в піксели
+			screenX = worldX*component.GameUnit + screenW/2
+			screenY = worldY*component.GameUnit + screenH/2
+		}
+
+		// Обчислюємо розмір з урахуванням зуму
+		screenW_obj := float32(worldW * component.GameUnit * zoom)
+		screenH_obj := float32(worldH * component.GameUnit * zoom)
+
+		// Малюємо прямокутник
 		vector.DrawFilledRect(
 			screen,
-			float32(pos[0]),
-			float32(pos[1]),
-			screenW,
-			screenH,
+			float32(screenX),
+			float32(screenY),
+			screenW_obj,
+			screenH_obj,
 			color.Color,
 			false,
 		)

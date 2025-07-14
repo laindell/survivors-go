@@ -40,3 +40,12 @@ func (m *Manager) Buffer() *ebiten.Image {
 func (m *Manager) Screen() *ebiten.Image {
 	return m.screen
 }
+
+// Додаю геттери для розмірів буфера
+func (m *Manager) BufW() int {
+	return m.bufW
+}
+
+func (m *Manager) BufH() int {
+	return m.bufH
+}

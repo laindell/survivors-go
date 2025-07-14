@@ -9,6 +9,8 @@ import (
 	//"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 
 	"survivors-go/cmd/game/internal/arch/screen"
+	// Додаю імпорти для префабів
+	"survivors-go/cmd/game/internal/game/prefabs"
 )
 
 type Game struct {
@@ -18,6 +20,12 @@ type Game struct {
 }
 
 func NewGame(world *ecs.World, ebitenScreenManager *screen.Manager) *Game {
+	// Створюємо гравця та камеру через префаби
+	player := prefabs.Player()()
+	camera := prefabs.Camera()()
+	world.AddEntity(player)
+	world.AddEntity(camera)
+
 	return &Game{
 		world:               world,
 		ebitenScreenManager: ebitenScreenManager,

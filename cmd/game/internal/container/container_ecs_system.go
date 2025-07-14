@@ -9,9 +9,9 @@ import (
 func (c *container) ecsSystems() []ecs.System {
 	return *static(c, func() *[]ecs.System {
 		return &[]ecs.System{
-			c.ecsSystemDebug(),
 			c.ecsSystemBoxDrawer(),
 			c.ecsSystemCamera(),
+			c.ecsSystemPlayerMove(),
 		}
 	})
 }
@@ -24,18 +24,16 @@ func (c *container) ecsSystemBoxDrawer() *system.BoxDrawer {
 	})
 }
 
-func (c *container) ecsSystemDebug() *system.Debug {
-	return static(c, func() *system.Debug {
-		return system.NewDebug(
-			c.ebitenEngine(),
-		)
-	})
-}
-
 func (c *container) ecsSystemCamera() *system.CameraSystem {
 	return static(c, func() *system.CameraSystem {
 		return system.NewCameraSystem(
 			c.ebitenEngine(),
 		)
+	})
+}
+
+func (c *container) ecsSystemPlayerMove() *system.PlayerMoveSystem {
+	return static(c, func() *system.PlayerMoveSystem {
+		return system.NewPlayerMoveSystem()
 	})
 }
