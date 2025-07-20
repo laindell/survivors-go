@@ -18,6 +18,7 @@ func (c *container) ecsComponents() []ecs.Component {
 			c.ecsComponentCamera(),
 			c.ecsComponentSprite(),
 			c.ecsComponentAnimation(),
+			c.ecsComponentTile(), // Додаю Tile
 		}
 	})
 }
@@ -67,5 +68,11 @@ func (c *container) ecsComponentSprite() *component.Sprite {
 func (c *container) ecsComponentAnimation() *component.Animation {
 	return static(c, func() *component.Animation {
 		return component.NewAnimation(8, 100*time.Millisecond, true)
+	})
+}
+
+func (c *container) ecsComponentTile() *component.Tile {
+	return static(c, func() *component.Tile {
+		return &component.Tile{}
 	})
 }

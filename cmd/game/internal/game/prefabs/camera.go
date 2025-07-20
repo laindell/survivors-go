@@ -11,7 +11,7 @@ func Camera() func() *ecs.Entity {
 	return func() *ecs.Entity {
 		cam := ecs.NewEntity(PrefabIDCamera)
 		camera := component.NewCamera(
-			mgl64.Vec2{0, 0}, // позиція todo: треба змінити щоб в напрямку куди йде гравець було зміщення на 1 системну одиницю
+			mgl64.Vec2{0, 0}, // позиція
 			0.1,              // швидкість слідування
 			1.0,              // zoom
 			mgl64.Vec2{1, 0}, // offset

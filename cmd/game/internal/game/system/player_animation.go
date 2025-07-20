@@ -3,9 +3,9 @@ package system
 import (
 	"math"
 	"survivors-go/cmd/game/internal/game/component"
+	"survivors-go/cmd/game/internal/game/system/internal"
 
 	"github.com/go-glx/ecs/ecs"
-	"github.com/hajimehoshi/ebiten/v2"
 )
 
 type PlayerAnimationSystem struct{}
@@ -39,20 +39,7 @@ func (s *PlayerAnimationSystem) OnUpdate(w ecs.RuntimeWorld) {
 		// Walking image для повернення
 		walkingImage := sprite.WalkingImage
 
-		dx, dy := 0.0, 0.0
-
-		if ebiten.IsKeyPressed(ebiten.KeyW) {
-			dy -= 1
-		}
-		if ebiten.IsKeyPressed(ebiten.KeyS) {
-			dy += 1
-		}
-		if ebiten.IsKeyPressed(ebiten.KeyA) {
-			dx -= 1
-		}
-		if ebiten.IsKeyPressed(ebiten.KeyD) {
-			dx += 1
-		}
+		dx, dy := internal.GetMoveDirection()
 
 		if dx != 0 || dy != 0 {
 			// Якщо рухається — повертаємо walking-спрайт

@@ -13,14 +13,8 @@ func Player() func() *ecs.Entity {
 		plr := ecs.NewEntity(PrefabIDPlayer)
 
 		transform := component.NewTransform(
-			mgl64.Vec2{
-				1,
-				1,
-			},
-			mgl64.Vec2{
-				1,
-				1,
-			},
+			mgl64.Vec2{1, 1},
+			mgl64.Vec2{0.5, 0.5},
 		)
 
 		color := component.NewColor(color.RGBA{255, 255, 0, 250})

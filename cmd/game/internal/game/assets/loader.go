@@ -2,13 +2,14 @@ package assets
 
 import (
 	"embed"
-	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"image"
 	_ "image/png"
+
+	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
 
-//go:embed images/**
+//go:embed images/** maps/** maps/PNG/**
 var assetsFS embed.FS
 
 type AssetManager struct {
@@ -56,4 +57,9 @@ func (am *AssetManager) LoadImageFromFile(path string) (*ebiten.Image, error) {
 
 	am.images[path] = ebitenImg
 	return ebitenImg, nil
+}
+
+// Додаю метод для читання карти з embed.FS (підтримує LDtk/JSON)
+func (am *AssetManager) LoadMap(path string) ([]byte, error) {
+	return assetsFS.ReadFile(path)
 }

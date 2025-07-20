@@ -41,7 +41,9 @@ func (s *SpriteRenderer) OnDraw(w ecs.RuntimeWorld) {
 
 	for filter.Next() {
 		_, transform, sprite := filter.Get()
-
+		if sprite.IsTile {
+			continue // Пропускаємо тайли карти
+		}
 		if sprite.Image == nil {
 			continue
 		}

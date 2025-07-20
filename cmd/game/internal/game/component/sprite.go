@@ -15,6 +15,7 @@ type Sprite struct {
 	Frame        int           // Номер кадру анімації (0-7)
 	IdleImage    *ebiten.Image // Idle-спрайт
 	WalkingImage *ebiten.Image // Walking-спрайт
+	IsTile       bool          // Додаю для маркування тайлів
 }
 
 func NewSprite(img *ebiten.Image, frameW, frameH int) *Sprite {

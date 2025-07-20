@@ -15,8 +15,8 @@ func AnimatedPlayer(assetManager *assets.AssetManager) func() *ecs.Entity {
 
 		// Transform
 		transform := component.NewTransform(
-			mgl64.Vec2{1, 1},
-			mgl64.Vec2{1, 1},
+			mgl64.Vec2{0, 0},
+			mgl64.Vec2{0, 0},
 		)
 
 		// Player

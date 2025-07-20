@@ -13,17 +13,9 @@ func (c *container) ecsSystems() []ecs.System {
 			c.ecsSystemPlayerAnimation(),
 			c.ecsSystemAnimation(),
 			c.ecsSystemCamera(),
-			c.ecsSystemBoxDrawer(),
+			c.ecsSystemWorldTilesRenderer(),
 			c.ecsSystemSpriteRenderer(),
 		}
-	})
-}
-
-func (c *container) ecsSystemBoxDrawer() *system.BoxDrawer {
-	return static(c, func() *system.BoxDrawer {
-		return system.NewBowDrawer(
-			c.ebitenEngine(),
-		)
 	})
 }
 
@@ -58,5 +50,13 @@ func (c *container) ecsSystemAnimation() *system.AnimationSystem {
 func (c *container) ecsSystemPlayerAnimation() *system.PlayerAnimationSystem {
 	return static(c, func() *system.PlayerAnimationSystem {
 		return system.NewPlayerAnimationSystem()
+	})
+}
+
+func (c *container) ecsSystemWorldTilesRenderer() *system.WorldTilesRenderer {
+	return static(c, func() *system.WorldTilesRenderer {
+		return system.NewWorldTilesRenderer(
+			c.ebitenEngine(),
+		)
 	})
 }

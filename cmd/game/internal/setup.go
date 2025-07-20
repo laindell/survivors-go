@@ -9,7 +9,7 @@ import (
 )
 
 func RunGame() int {
-	arch.InitWorldParams(-30, 30, -20, 20)
+	arch.InitWorldParams(-10, 10, -10, 10)
 	Closer := NewCloser()
 	di := container.NewDI(Closer)
 
