@@ -5,18 +5,18 @@ import (
 	"survivors-go/cmd/game/internal/game/assets"
 )
 
-func (cont *container) game() *game.Game {
-	return static(cont, func() *game.Game {
+func (c *container) game() *game.Game {
+	return static(c, func() *game.Game {
 		return game.NewGame(
-			cont.ecsWorld(),
-			cont.ebitenScreenManager(),
-			cont.assetManager(),
+			c.ecsWorld(),
+			c.ebitenScreenManager(),
+			c.assetManager(),
 		)
 	})
 }
 
-func (cont *container) assetManager() *assets.AssetManager {
-	return static(cont, func() *assets.AssetManager {
+func (c *container) assetManager() *assets.AssetManager {
+	return static(c, func() *assets.AssetManager {
 		return assets.NewAssetManager()
 	})
 }

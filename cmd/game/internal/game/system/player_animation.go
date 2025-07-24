@@ -49,6 +49,7 @@ func (s *PlayerAnimationSystem) OnUpdate(w ecs.RuntimeWorld) {
 				animation.FrameTime = 100 * 1e6 // 100ms
 				animation.Loop = true
 			}
+
 			// Визначаємо напрямок для анімації
 			if math.Abs(dx) > math.Abs(dy) {
 				if dx > 0 {
@@ -63,15 +64,17 @@ func (s *PlayerAnimationSystem) OnUpdate(w ecs.RuntimeWorld) {
 					sprite.Direction = 3 // вгору
 				}
 			}
+
 			if !animation.IsPlaying {
 				animation.Play()
 			}
 			animation.SetSpeed(1.0)
+
 		} else {
 			// Якщо стоїть — підміняємо на idle-спрайт
 			if sprite.IdleImage != nil && sprite.Image != sprite.IdleImage {
 				sprite.Image = sprite.IdleImage
-				animation.FrameCount = 8        // Кількість кадрів у idle (припустимо 8)
+				animation.FrameCount = 8        // Кількість кадрів у idle
 				animation.FrameTime = 200 * 1e6 // 200ms
 				animation.Loop = true
 			}

@@ -42,7 +42,7 @@ func NewGame(world *ecs.World, ebitenScreenManager *screen.Manager, assetManager
 		if err != nil {
 			println("[ERROR] Не вдалося завантажити карту:", err.Error())
 		} else {
-			transforms, sprites, err := system.ParseWorldTilesFromBytes(mapData, tilesetImg, 16, 16)
+			transforms, sprites, err := system.ParseWorldTilesFrom(mapData, tilesetImg, 16, 16)
 			if err != nil {
 				println("[ERROR] Не вдалося розпарсити карту:", err.Error())
 			} else {

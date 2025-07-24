@@ -22,6 +22,7 @@ func (w *WorldTilesRenderer) OnDraw(world ecs.RuntimeWorld) {
 	// Знаходимо камеру
 	cameraFilter := ecs.NewFilter1[component.Camera](world).Find()
 	var cam *component.Camera
+
 	for cameraFilter.Next() {
 		_, c := cameraFilter.Get()
 		cam = c
@@ -30,15 +31,15 @@ func (w *WorldTilesRenderer) OnDraw(world ecs.RuntimeWorld) {
 	if cam == nil {
 		return
 	}
+
 	filter := ecs.NewFilter2[component.Transform, component.Sprite](world).Find()
 	for filter.Next() {
 		_, tr, spr := filter.Get()
-		if spr.Image == nil {
+
+		if spr.Image == nil || !spr.IsTile {
 			continue
 		}
-		if !spr.IsTile {
-			continue // малюємо лише тайли
-		}
+
 		// Обчислюємо позицію на екрані з урахуванням камери
 		screenX := (tr.Pos.X() - cam.Pos.X()) * component.GameUnit * cam.Zoom
 		screenY := (tr.Pos.Y() - cam.Pos.Y()) * component.GameUnit * cam.Zoom

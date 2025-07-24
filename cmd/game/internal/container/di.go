@@ -17,6 +17,7 @@ func NewDI(closer closer) *DI {
 		cont: newContainer(closer),
 	}
 }
+
 func (c *DI) ProvideGame() *game.Game {
 	return c.cont.game()
 }
